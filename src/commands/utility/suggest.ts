@@ -11,9 +11,9 @@ export default {
 	},
 	category: 'utility',
 	hidden: false,
-	execute(interaction: ChatInputCommandInteraction) {
+	async execute(interaction: ChatInputCommandInteraction) {
 		const suggestion = interaction.options.getString('suggestion');
-		interaction.reply(
+		await interaction.reply(
 			'Thank you for suggesting ' + suggestion + '. Unfortunately, this command is currently not finished.',
 		);
 	},

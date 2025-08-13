@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import { Command } from '../index.js';
 
 export default {
@@ -8,7 +8,7 @@ export default {
 	},
 	category: 'utility',
 	hidden: false,
-	execute(interaction: ChatInputCommandInteraction) {
+	async execute(interaction: ChatInputCommandInteraction) {
 		const embed = new EmbedBuilder()
 			.setTitle('LuxPlanes Information')
 			.setDescription('Links to LuxPlanes social media accounts:')
@@ -30,6 +30,6 @@ export default {
 					inline: false,
 				},
 			]);
-		interaction.reply({ embeds: [embed] });
+		await interaction.reply({ embeds: [embed] });
 	},
 } satisfies Command;
