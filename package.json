@@ -13,6 +13,7 @@
 	},
 	"dependencies": {
 		"@discordjs/core": "^2.1.1",
+		"@upstash/redis": "^1.35.3",
 		"discord.js": "^14.20.0",
 		"dotenv": "^16.4.7"
 	},
