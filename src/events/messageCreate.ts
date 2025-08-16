@@ -20,12 +20,12 @@ export default {
 				message.reply({
 					embeds: [embed],
 				});
+				const valueIndex = (message.client as CustomClient).guessChannels.indexOf(game);
+				console.log(valueIndex);
+				(message.client as CustomClient).guessChannels.splice(valueIndex, 1);
+				console.log((message.client as CustomClient).guessChannels);
 				return;
 			}
-			const valueIndex = (message.client as CustomClient).guessChannels.indexOf(game);
-			console.log(valueIndex);
-			(message.client as CustomClient).guessChannels.splice(valueIndex, 1);
-			console.log((message.client as CustomClient).guessChannels);
 		});
 	},
 } satisfies Event<Events.MessageCreate>;
