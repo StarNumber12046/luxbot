@@ -1,5 +1,6 @@
-import { ApplicationCommandOptionType, ChatInputCommandInteraction } from 'discord.js';
+import { ApplicationCommandOptionType, ChatInputCommandInteraction, EmbedBuilder, TextChannel } from 'discord.js';
 import { Command } from '../index.js';
+import { env } from 'process';
 
 export default {
 	data: {
@@ -13,8 +14,25 @@ export default {
 	hidden: false,
 	async execute(interaction: ChatInputCommandInteraction) {
 		const suggestion = interaction.options.getString('suggestion');
+		const guild = await interaction.client.guilds.fetch(env.GUILD_ID!);
+		const channel = (await guild.channels.fetch(env.SUGGESTIONS_CHANNEL_ID!)) as TextChannel;
+		const embed = new EmbedBuilder()
+			.setTitle('**SUGGESTION**')
+			.setColor('#30d5c7')
+			.setDescription(suggestion)
+			.setThumbnail(interaction.user.displayAvatarURL())
+			.setFooter({ text: `SUGGESTED BY: ${interaction.user.username}` });
+		const msg = await channel.send({
+			embeds: [embed],
+		});
+		const thread = await msg.startThread({
+			name: `${interaction.user.displayName}'s Suggestion`,
+		});
+		await thread.send(`Suggested by <@${interaction.user.id}>`);
+		await msg.react('✅');
+		await msg.react('❌');
 		await interaction.reply(
-			'Thank you for suggesting ' + suggestion + '. Unfortunately, this command is currently not finished.',
+			'Thanks for your suggestion! Your suggestion will be brought to the attention of staff members.',
 		);
 	},
 } satisfies Command;
