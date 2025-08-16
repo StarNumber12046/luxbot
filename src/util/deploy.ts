@@ -5,6 +5,7 @@ import { REST } from 'discord.js';
 import { loadCommands } from './loaders.js';
 
 const commands = await loadCommands(new URL('../commands/', import.meta.url));
+commands.forEach((command) => console.log(`Registering command ${command.data.name}...`));
 const commandData = [...commands.values()].map((command) => command.data);
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
